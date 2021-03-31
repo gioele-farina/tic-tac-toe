@@ -67,21 +67,28 @@ class ChoosePlayer extends Component {
 
     let input1Class;
     let input2Class;
+    let choseTextClass;
 
     if (this.state.player1name !== "" && !this.state.notAllowed) {
-      input1Class = "inputFilled"
+      input1Class = "inputFilled";
     } else if (this.state.player1name === "" && this.state.notAllowed) {
-      input1Class = "danger"
+      input1Class = "danger";
     } else if (this.state.player1name !== "" && this.state.notAllowed) {
-      input1Class = "inputFilled"
+      input1Class = "inputFilled";
     }
 
     if (this.state.player2name !== "" && !this.state.notAllowed) {
-      input2Class = "inputFilled"
+      input2Class = "inputFilled";
     } else if (this.state.player2name === "" && this.state.notAllowed) {
-      input2Class = "danger"
+      input2Class = "danger";
     } else if (this.state.player2name !== "" && this.state.notAllowed) {
-      input2Class = "inputFilled"
+      input2Class = "inputFilled";
+    }
+
+    if (this.state.player1symbol !== "") {
+      choseTextClass = "choseText";
+    } else if (this.state.player1symbol === "" && this.state.notAllowed) {
+      choseTextClass = "choseText notAllowed";
     }
 
     return (
@@ -95,7 +102,7 @@ class ChoosePlayer extends Component {
             <input type="text" onChange={(event) => this.changeNameHandler(event, "p1")} value={this.state.player1name}
             className={input1Class}/>
 
-            <p>Choose your symbol</p>
+          <p className={choseTextClass}>Choose your symbol</p>
 
             <div className="chooseSymbol">
               <div className={this.state.player1symbol === "X" ? "inputFilled" : ""} onClick={()=> this.chooseSymbolHandler("p1", "X")}>X</div>
@@ -108,7 +115,7 @@ class ChoosePlayer extends Component {
             <p>Name: </p>
             <input type="text" onChange={(event) => this.changeNameHandler(event, "p2")} value={this.state.player2name} className={input2Class}/>
 
-            <p>Choose your symbol</p>
+            <p className={choseTextClass}>Choose your symbol</p>
 
             <div className="chooseSymbol">
               <div className={this.state.player1symbol === "O" ? "inputFilled" : ""} onClick={()=> this.chooseSymbolHandler("p2", "X")}>X</div>

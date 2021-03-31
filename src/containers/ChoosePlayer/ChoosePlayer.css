@@ -86,3 +86,8 @@
 .danger {
   border: 3px solid salmon;
 }
+
+.choseText.notAllowed {
+  text-decoration: underline;
+  text-decoration-color: red;
+}
