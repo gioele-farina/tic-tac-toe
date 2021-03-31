@@ -3,8 +3,13 @@ import './GameCell.css';
 
 const gameCell = (props) => {
 
+  let classes = "gameCell";
+  if (props.content === "" ) {
+    classes = "gameCell active";
+  }
+
   return (
-    <div className="gameCell">{props.content}</div>
+    <div className={classes} onClick={() => props.moveHandler(props.index)}>{props.content}</div>
   );
 }
 

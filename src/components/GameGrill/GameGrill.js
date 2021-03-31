@@ -6,7 +6,7 @@ import GameCell from './GameCell/GameCell';
 const gameGrill = (props) => {
 
   let cells = props.cells.map((cell, i) => {
-    return <GameCell key={i} content={cell} />
+    return <GameCell key={i} content={cell} index={i} moveHandler={props.moveHandler}/>
   });
 
   return (
