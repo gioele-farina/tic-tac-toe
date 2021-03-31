@@ -7,6 +7,9 @@ const gameCell = (props) => {
   if (props.content === "" ) {
     classes = "gameCell active";
   }
+  if (props.isGameOver) {
+    classes = "gameCell";
+  }
 
   return (
     <div className={classes} onClick={() => props.moveHandler(props.index)}>{props.content}</div>

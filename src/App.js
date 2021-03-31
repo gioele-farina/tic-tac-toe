@@ -16,6 +16,8 @@ class App extends Component {
 
     isP1turn: true,
     isGameOver: false,
+
+    victoryLine: null,
   }
 
   moveHandler = (cellIndex) => {
@@ -40,8 +42,12 @@ class App extends Component {
   victoryHandler= (cells) => {
     let board = cells;
 
-    let victoryto = () => {
-      this.state.isGameOver = true;
+    let victoryto = (line) => {
+      this.setState({
+        isGameOver: true,
+        victoryLine: line,
+      });
+
       if (this.state.isP1turn) {
         console.log("P1 wins");
       } else {
@@ -51,28 +57,34 @@ class App extends Component {
 
     if ((board[0] === "X" && board[1] === "X" && board[2] === "X") ||
         (board[0] === "O" && board[1] === "O" && board[2] === "O")) {
-          victoryto();
+          victoryto("012");
     } else if ((board[3] === "X" && board[4] === "X" && board[5] === "X") ||
               (board[3] === "O" && board[4] === "O" && board[5] === "O")) {
-          victoryto();
+          victoryto("345");
     } else if ((board[6] === "X" && board[7] === "X" && board[8] === "X") ||
               (board[6] === "O" && board[7] === "O" && board[8] === "O")) {
-          victoryto();
-    } else if ((board[6] === "X" && board[4] === "X" && board[2] === "X") ||
-              (board[6] === "O" && board[4] === "O" && board[2] === "O")) {
-          victoryto();
+          victoryto("678");
     } else if ((board[0] === "X" && board[3] === "X" && board[6] === "X") ||
               (board[0] === "O" && board[3] === "O" && board[6] === "O")) {
-          victoryto();
+          victoryto("036");
     } else if ((board[1] === "X" && board[4] === "X" && board[7] === "X") ||
               (board[1] === "O" && board[4] === "O" && board[7] === "O")) {
-          victoryto();
+          victoryto("147");
     } else if ((board[2] === "X" && board[5] === "X" && board[8] === "X") ||
               (board[2] === "O" && board[5] === "O" && board[8] === "O")) {
-          victoryto();
+          victoryto("258");
     } else if ((board[0] === "X" && board[4] === "X" && board[8] === "X") ||
               (board[0] === "O" && board[4] === "O" && board[8] === "O")) {
-          victoryto();
+          victoryto("048");
+    } else if ((board[6] === "X" && board[4] === "X" && board[2] === "X") ||
+              (board[6] === "O" && board[4] === "O" && board[2] === "O")) {
+          victoryto("642");
+    } else
+        if (!board.includes("")) {
+          console.log("draw");
+          this.setState({
+            isGameOver: true
+          });
     }
   }
 
@@ -85,7 +97,7 @@ class App extends Component {
       <div className="App">
 
         <h1>Titolo momentaneo</h1>
-        <GameGrill cells={this.state.cells} moveHandler={this.moveHandler}/>
+        <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine}/>
       </div>
     );
   }

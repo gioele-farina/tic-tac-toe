@@ -1,0 +1,71 @@
+.victoryLine {
+  position: absolute;
+  border-radius: 4px;
+  background-color: black;
+}
+
+.line012 {
+  width: 95%;
+  height: 4px;
+  top: calc((100% / 6) * 1);
+  transform: translate(0, -50%);
+  left: 2.5%;
+}
+
+.line345 {
+  width: 95%;
+  height: 4px;
+  top: calc((100% / 6) * 3);
+  transform: translate(0, -50%);
+  left: 2.5%;
+}
+
+.line678 {
+  width: 95%;
+  height: 4px;
+  top: calc((100% / 6) * 5);
+  transform: translate(0, -50%);
+  left: 2.5%;
+}
+
+.line036 {
+  height: 95%;
+  width: 4px;
+  left: calc((100% / 6) * 1);
+  transform: translate(-50%, 0);
+  top: 2.5%;
+}
+
+.line147 {
+  height: 95%;
+  width: 4px;
+  left: calc((100% / 6) * 3);
+  transform: translate(-50%, 0);
+  top: 2.5%;
+}
+
+.line258 {
+  height: 95%;
+  width: 4px;
+  left: calc((100% / 6) * 5);
+  transform: translate(-50%, 0);
+  top: 2.5%;
+}
+
+.line048 {
+  width: 100%;
+  height: 4px;
+  top: 50%;
+  left: 0;
+  transform-origin: center;
+  transform: translate(0, -50%) rotate(45deg);
+}
+
+.line642 {
+  width: 100%;
+  height: 4px;
+  top: 50%;
+  left: 0;
+  transform-origin: center;
+  transform: translate(0, -50%) rotate(135deg);
+}
