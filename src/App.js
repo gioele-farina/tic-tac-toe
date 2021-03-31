@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import GameGrill from './components/GameGrill/GameGrill';
+import Layout from './components/Layout/Layout';
+import ChoosePlayer from './containers/ChoosePlayer/ChoosePlayer';
 
 class App extends Component {
 
@@ -10,6 +12,8 @@ class App extends Component {
       "","","",
       "","","",
     ],
+
+    choosePlayer: true,
 
     isP1Uman: true,
     isP2Uman: true,
@@ -39,7 +43,7 @@ class App extends Component {
     this.victoryHandler(newCells);
   }
 
-  victoryHandler= (cells) => {
+  victoryHandler = (cells) => {
     let board = cells;
 
     let victoryto = (line) => {
@@ -88,6 +92,13 @@ class App extends Component {
     }
   }
 
+  startGameHandler = (gameSetting) => {
+    this.setState({
+      choosePlayer: false
+    });
+    console.log("restituire i setting");
+  }
+
   componentDidMount() {
 
   }
@@ -95,9 +106,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
-        <h1>Titolo momentaneo</h1>
-        <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine}/>
+        <ChoosePlayer start={this.startGameHandler} visible={this.state.choosePlayer} />
+        <Layout>
+          <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine}/>
+        </Layout>
       </div>
     );
   }

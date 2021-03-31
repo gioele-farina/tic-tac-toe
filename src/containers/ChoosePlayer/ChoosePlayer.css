@@ -1,0 +1,88 @@
+.choosePlayerContainer {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  padding: 30px;
+}
+.choosePlayerContainer.closed {
+  display: none;
+}
+
+.welcomeTitle {
+  color: white;
+  font-size: 45px;
+  text-shadow: 2px 0 0 red, -2px 0 0 red, 0 2px 0 red, 0 -2px 0 red, 1px 1px red, -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red;
+  text-align: center;
+}
+
+.starButton {
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 200px;
+  margin: 15px auto;
+  cursor: pointer;
+}
+.starButton:hover {
+  transform: scale(1.1);
+}
+
+.starText {
+  color: white;
+  font-size: 30px;
+  text-shadow: 2px 0 0 red, -2px 0 0 red, 0 2px 0 red, 0 -2px 0 red, 1px 1px red, -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red;
+  text-align: center;
+
+}
+
+.chooseContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.chooseContainer > div {
+  width: 250px;
+  min-height: 100px;
+  margin: 10px;
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+}
+.chooseContainer p {
+  margin-top: 10px;
+}
+.chooseContainer input {
+  text-align: center;
+  padding: 5px;
+}
+.chooseContainer .inputFilled {
+  border: 3px solid lightgreen;
+}
+
+.chooseSymbol {
+  display: flex;
+  justify-content: space-around;
+}
+.chooseSymbol > div {
+  margin-top: 15px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.chooseSymbol {
+  cursor: pointer;
+}
+
+.danger {
+  border: 3px solid salmon;
+}

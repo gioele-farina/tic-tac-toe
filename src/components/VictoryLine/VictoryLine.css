@@ -1,5 +1,6 @@
 .victoryLine {
   position: absolute;
+  z-index: 5;
   border-radius: 4px;
   background-color: black;
 }
