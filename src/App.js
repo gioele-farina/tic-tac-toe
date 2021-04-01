@@ -79,6 +79,18 @@ class App extends Component {
           p2Score: newScore
         });
       }
+
+      setTimeout(() => {
+        this.setState({
+          cells: [
+            "","","",
+            "","","",
+            "","","",
+          ],
+          isGameOver: false,
+          victoryLine: null,
+        });
+      }, 3000);
     }
 
     if ((board[0] === "X" && board[1] === "X" && board[2] === "X") ||
@@ -111,7 +123,7 @@ class App extends Component {
           this.setState({
             isGameOver: true
           });
-    }
+        }
   }
 
   startGameHandler = (gameSetting) => {
