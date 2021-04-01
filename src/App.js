@@ -30,6 +30,8 @@ class App extends Component {
     p2Score: 0,
 
     victoryLine: null,
+
+    gameHistory: [],
   }
 
   moveHandler = (cellIndex) => {
@@ -55,22 +57,22 @@ class App extends Component {
     this.victoryHandler(newCells);
   }
 
+  historyHandler = ()=> {
+    let oldHistory = [...this.state.gameHistory];
+    let gameState = this.state.cells;
+    let newHistory = [...oldHistory, gameState];
+    this.setState({
+      gameHistory: newHistory,
+    });
+  }
+
   drawHandler = () => {
     console.log("draw");
     this.setState({
       isGameOver: true,
     });
-    setTimeout(() => {
-      this.setState({
-        cells: [
-          "","","",
-          "","","",
-          "","","",
-        ],
-        isGameOver: false,
-        victoryLine: null,
-      });
-    }, 3000);
+    this.historyHandler();
+    this.resetGameHandler();
   }
 
   victoryHandler = (cells) => {
@@ -97,18 +99,8 @@ class App extends Component {
           p2Score: newScore
         });
       }
-
-      setTimeout(() => {
-        this.setState({
-          cells: [
-            "","","",
-            "","","",
-            "","","",
-          ],
-          isGameOver: false,
-          victoryLine: null,
-        });
-      }, 3000);
+      this.historyHandler();
+      this.resetGameHandler();
     }
 
     if ((board[0] === "X" && board[1] === "X" && board[2] === "X") ||
@@ -142,6 +134,20 @@ class App extends Component {
           });
           this.drawHandler();
         }
+  }
+
+  resetGameHandler = () => {
+    setTimeout(() => {
+      this.setState({
+        cells: [
+          "","","",
+          "","","",
+          "","","",
+        ],
+        isGameOver: false,
+        victoryLine: null,
+      });
+    }, 2500);
   }
 
   startGameHandler = (gameSetting) => {
