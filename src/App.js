@@ -17,7 +17,7 @@ class App extends Component {
     choosePlayer: true,
 
     isP1Uman: true,
-    isP2Uman: true,
+    isP2Uman: false,
 
     player1name: "",
     player2name: "",
@@ -48,15 +48,45 @@ class App extends Component {
 
     let newCells = [...this.state.cells];
 
-    if (newCells[cellIndex] === "") {
-      newCells[cellIndex] = move;
+    if (!this.state.isP1turn && !this.state.isP2Uman) {
+      this.pcMoveHandler(p2Symbol);
+    } else {
+      if (newCells[cellIndex] === "") {
+        newCells[cellIndex] = move;
+      }
+      this.setState({
+        cells: newCells,
+        isP1turn: !(this.state.isP1turn),
+      });
     }
+
+    this.victoryHandler(newCells);
+  }
+
+  pcMoveHandler = (symbol) => {
+    console.log("turno del pc");
+    let board = this.state.cells;
+
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    let cellIndex = null;
+    while (cellIndex === null) {
+      let rand = getRandomIntInclusive(0, 8);
+      if (board[rand] === "") {
+         cellIndex = rand;
+      }
+    }
+    board[cellIndex] = symbol;
+
     this.setState({
-      cells: newCells,
+      cells: board,
       isP1turn: !(this.state.isP1turn),
     });
 
-    this.victoryHandler(newCells);
   }
 
   historyHandler = (ActualCells)=> {
