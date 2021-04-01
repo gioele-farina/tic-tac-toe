@@ -3,6 +3,7 @@ import './App.css';
 import GameGrill from './components/GameGrill/GameGrill';
 import Layout from './components/Layout/Layout';
 import ChoosePlayer from './containers/ChoosePlayer/ChoosePlayer';
+import VictoriesCounter from './components/VictoriesCounter/VictoriesCounter';
 
 class App extends Component {
 
@@ -25,6 +26,9 @@ class App extends Component {
     isP1turn: true,
     isGameOver: false,
 
+    p1Score: 0,
+    p2Score: 0,
+
     victoryLine: null,
   }
 
@@ -33,7 +37,11 @@ class App extends Component {
       return null;
     }
 
-    let move = this.state.isP1turn ? "X" : "O";
+    let p1Symbol = this.state.player1symbol;
+    let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
+
+    let move = this.state.isP1turn ? p1Symbol : p2Symbol;
+
     let newCells = [...this.state.cells];
 
     if (newCells[cellIndex] === "") {
@@ -58,8 +66,18 @@ class App extends Component {
 
       if (this.state.isP1turn) {
         console.log("P1 wins");
+        let newScore = this.state.p1Score;
+        newScore++;
+        this.setState({
+          p1Score: newScore
+        });
       } else {
         console.log("P2 wins");
+        let newScore = this.state.p2Score;
+        newScore++;
+        this.setState({
+          p2Score: newScore
+        });
       }
     }
 
@@ -113,15 +131,28 @@ class App extends Component {
   }
 
   render() {
+
+    let turnInfo;
+    if (!this.state.isGameOver) {
+      if (this.state.isP1turn) {
+        turnInfo = `${this.state.player1name} (${this.state.player1symbol}) turn`;
+      } else {
+        turnInfo = `${this.state.player2name} (${this.state.player1symbol === "X" ? "O" : "X"}) turn`;
+      }
+    } else {
+      turnInfo = this.state.isP1turn ? `${this.state.player2name} wins.` : `${this.state.player1name} wins.`
+    }
+
     return (
       <div className="App">
         <ChoosePlayer start={this.startGameHandler} visible={this.state.choosePlayer} />
         <Layout>
-          <h1>{this.state.isP1turn
-              ? `Player 1 (${this.state.player1symbol}) `
-              : `Player 2 (${this.state.player1symbol === "X" ? "O" : "X"}) `}
-              turn.
-          </h1>
+          <div className="displayGameInfo">
+            <h1>
+              {turnInfo}
+            </h1>
+            <VictoriesCounter p1Score={this.state.p1Score} p2Score={this.state.p2Score} player1name={this.state.player1name} player2name={this.state.player2name} />
+          </div>
           <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine}/>
         </Layout>
       </div>
