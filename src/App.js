@@ -55,6 +55,24 @@ class App extends Component {
     this.victoryHandler(newCells);
   }
 
+  drawHandler = () => {
+    console.log("draw");
+    this.setState({
+      isGameOver: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        cells: [
+          "","","",
+          "","","",
+          "","","",
+        ],
+        isGameOver: false,
+        victoryLine: null,
+      });
+    }, 3000);
+  }
+
   victoryHandler = (cells) => {
     let board = cells;
 
@@ -119,10 +137,10 @@ class App extends Component {
           victoryto("642");
     } else
         if (!board.includes("")) {
-          console.log("draw");
           this.setState({
-            isGameOver: true
+            victoryLine: "draw"
           });
+          this.drawHandler();
         }
   }
 
@@ -152,7 +170,11 @@ class App extends Component {
         turnInfo = `${this.state.player2name} (${this.state.player1symbol === "X" ? "O" : "X"}) turn`;
       }
     } else {
-      turnInfo = this.state.isP1turn ? `${this.state.player2name} wins.` : `${this.state.player1name} wins.`
+      if (this.state.victoryLine === "draw") {
+        turnInfo = "Draw";
+      } else {
+        turnInfo = this.state.isP1turn ? `${this.state.player2name} wins.` : `${this.state.player1name} wins.`
+      }
     }
 
     return (
