@@ -1,0 +1,9 @@
+.miniGameCell {
+  width: calc(100% / 3);
+  height: calc(100% / 3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+}

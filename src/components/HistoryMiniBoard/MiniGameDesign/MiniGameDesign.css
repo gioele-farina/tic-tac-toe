@@ -1,0 +1,36 @@
+.miniGrillLine {
+  background-color: black;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 4;
+}
+
+.miniVertical {
+  height: 100%;
+  width: 5px;
+  transform: translate(-50%, 0);
+}
+
+.miniHorizontal {
+  height: 5px;
+  width: 100%;
+  transform: translate(0, -50%);
+}
+
+.miniVertical.v1 {
+  top: 0;
+  left: calc(100% / 3);
+}
+.miniVertical.v2 {
+  top: 0;
+  left: calc((100% / 3) * 2);
+}
+
+.miniHorizontal.hr1 {
+  top: calc(100% / 3);
+  left: 0;
+}
+.miniHorizontal.hr2 {
+  top: calc((100% / 3) * 2);
+  left: 0;
+}

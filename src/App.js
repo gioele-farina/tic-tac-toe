@@ -32,6 +32,8 @@ class App extends Component {
     victoryLine: null,
 
     gameHistory: [],
+
+    hamMenu: false,
   }
 
   moveHandler = (cellIndex) => {
@@ -57,21 +59,20 @@ class App extends Component {
     this.victoryHandler(newCells);
   }
 
-  historyHandler = ()=> {
+  historyHandler = (ActualCells)=> {
     let oldHistory = [...this.state.gameHistory];
-    let gameState = this.state.cells;
-    let newHistory = [...oldHistory, gameState];
+    let newHistory = [...oldHistory, ActualCells];
     this.setState({
       gameHistory: newHistory,
     });
   }
 
-  drawHandler = () => {
+  drawHandler = (ActualCells) => {
     console.log("draw");
     this.setState({
       isGameOver: true,
     });
-    this.historyHandler();
+    this.historyHandler(ActualCells);
     this.resetGameHandler();
   }
 
@@ -99,7 +100,7 @@ class App extends Component {
           p2Score: newScore
         });
       }
-      this.historyHandler();
+      this.historyHandler(cells);
       this.resetGameHandler();
     }
 
@@ -132,7 +133,7 @@ class App extends Component {
           this.setState({
             victoryLine: "draw"
           });
-          this.drawHandler();
+          this.drawHandler(cells);
         }
   }
 
@@ -157,6 +158,18 @@ class App extends Component {
       player1name: gameSetting.player1name,
       player2name: gameSetting.player2name,
       player1symbol: gameSetting.player1symbol,
+    });
+  }
+
+  showHamHandler = () => {
+    this.setState({
+      hamMenu: true,
+    });
+  }
+
+  hideHamHandler = () => {
+    this.setState({
+      hamMenu: false,
     });
   }
 
@@ -186,7 +199,7 @@ class App extends Component {
     return (
       <div className="App">
         <ChoosePlayer start={this.startGameHandler} visible={this.state.choosePlayer} />
-        <Layout>
+        <Layout hamMenu={this.state.hamMenu} showHamHandler={this.showHamHandler} hideHamHandler={this.hideHamHandler} gameHistory={this.state.gameHistory}>
           <div className="displayGameInfo">
             <h1>
               {turnInfo}
