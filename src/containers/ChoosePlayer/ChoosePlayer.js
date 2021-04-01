@@ -53,10 +53,12 @@ class ChoosePlayer extends Component {
       this.setState({
         notAllowed : false,
       });
-      console.log("start ok");
-      this.props.start();
+      this.props.start({
+        player1name: this.state.player1name,
+        player2name: this.state.player2name,
+        player1symbol: this.state.player1symbol,
+      });
     } else {
-      console.log("start non ok");
       this.setState({
         notAllowed : true,
       });

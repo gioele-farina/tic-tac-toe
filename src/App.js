@@ -18,6 +18,10 @@ class App extends Component {
     isP1Uman: true,
     isP2Uman: true,
 
+    player1name: "",
+    player2name: "",
+    player1symbol: "",
+
     isP1turn: true,
     isGameOver: false,
 
@@ -93,14 +97,19 @@ class App extends Component {
   }
 
   startGameHandler = (gameSetting) => {
+
     this.setState({
-      choosePlayer: false
+      choosePlayer: false,
+      player1name: gameSetting.player1name,
+      player2name: gameSetting.player2name,
+      player1symbol: gameSetting.player1symbol,
     });
-    console.log("restituire i setting");
   }
 
   componentDidMount() {
-
+    this.setState({
+      isP1turn: Math.random() < 0.5
+    });
   }
 
   render() {
@@ -108,6 +117,11 @@ class App extends Component {
       <div className="App">
         <ChoosePlayer start={this.startGameHandler} visible={this.state.choosePlayer} />
         <Layout>
+          <h1>{this.state.isP1turn
+              ? `Player 1 (${this.state.player1symbol}) `
+              : `Player 2 (${this.state.player1symbol === "X" ? "O" : "X"}) `}
+              turn.
+          </h1>
           <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine}/>
         </Layout>
       </div>
