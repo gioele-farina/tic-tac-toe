@@ -9,7 +9,7 @@ const layout = (props) => {
     <Wrapper>
       <nav className="navbar">
         <h1>Play Tic-Tac-Toe!</h1>
-        <HamburgerMenu show={props.hamMenu} showHamHandler={props.showHamHandler} hideHamHandler={props.hideHamHandler} gameHistory={props.gameHistory} />
+        <HamburgerMenu show={props.hamMenu} showHamHandler={props.showHamHandler} hideHamHandler={props.hideHamHandler} gameHistory={props.gameHistory} victoryLine={props.victoryLine}/>
       </nav>
       <main className="appPage">{props.children}</main>
     </Wrapper>

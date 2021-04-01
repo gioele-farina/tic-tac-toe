@@ -9,7 +9,7 @@ const hamburgerMenu = (props) => {
   let history = [];
   if (props.gameHistory.length > 0) {
     props.gameHistory.forEach((game, i) => {
-      history.push(<HistoryMiniBoard key={i} game={game}/>);
+      history.push(<HistoryMiniBoard key={i} game={game} victoryLine={props.victoryLine} />);
     });
   }
 

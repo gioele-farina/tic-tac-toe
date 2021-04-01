@@ -1,20 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './HistoryMiniBoard.css';
 import MiniGameDesign from './MiniGameDesign/MiniGameDesign';
 import MiniGameCell from './MiniGameCell/MiniGameCell';
+import VictoryLine from '../VictoryLine/VictoryLine';
 
-const historyMiniBoard = (props) => {
+class HistoryMiniBoard extends Component {
 
-  let cells = props.game.map((cell, i) => {
-    return <MiniGameCell key={i} content={cell} />;
-  });
+  state = {
+    line: this.props.victoryLine
+  }
 
-  return (
-    <div className="historyMiniBoard">
-      {cells}
-      <MiniGameDesign />
-    </div>
-  );
+  shoulComponentUpdate() {
+	  return false;
+  }
+
+  render(){
+    let cells = this.props.game.map((cell, i) => {
+      return <MiniGameCell key={i} content={cell} />;
+    });
+
+    return (
+      <div className="historyMiniBoard">
+        {cells}
+        <MiniGameDesign />
+        <VictoryLine victoryLine={this.state.line}/>
+      </div>
+    );
+  }
 }
 
-export default historyMiniBoard;
+export default HistoryMiniBoard;

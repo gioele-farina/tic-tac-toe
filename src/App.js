@@ -199,7 +199,7 @@ class App extends Component {
     return (
       <div className="App">
         <ChoosePlayer start={this.startGameHandler} visible={this.state.choosePlayer} />
-        <Layout hamMenu={this.state.hamMenu} showHamHandler={this.showHamHandler} hideHamHandler={this.hideHamHandler} gameHistory={this.state.gameHistory}>
+        <Layout hamMenu={this.state.hamMenu} showHamHandler={this.showHamHandler} hideHamHandler={this.hideHamHandler} gameHistory={this.state.gameHistory} victoryLine={this.state.victoryLine}>
           <div className="displayGameInfo">
             <h1>
               {turnInfo}
