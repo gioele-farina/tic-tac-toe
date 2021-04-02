@@ -57,7 +57,7 @@ class App extends Component {
   }
 
   pcMoveHandler = () => {
-    if (this.state.isGameOver) {
+    if (this.state.isGameOver || this.state.isP1turn) {
       return null;
     }
 
@@ -178,16 +178,11 @@ class App extends Component {
   }
 
   startGameHandler = (gameSetting) => {
-
     this.setState({
       choosePlayer: false,
       player1name: gameSetting.player1name,
       player2name: gameSetting.player2name,
       player1symbol: gameSetting.player1symbol,
-    }, () => {
-      if (!this.state.isP2Uman && !this.state.isP1turn) {
-        this.pcMoveHandler();
-      }
     });
   }
 
@@ -214,8 +209,10 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    if (!this.state.isP2Uman && !this.state.isP1turn && !this.state.isGameOver) {
-      this.pcMoveHandler();
+    if (!this.state.isP2Uman && !this.state.isP1turn && !this.state.isGameOver && !this.state.choosePlayer) {
+      setTimeout(() => {
+        this.pcMoveHandler();
+      }, 800);
     }
   }
 
