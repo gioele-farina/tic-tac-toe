@@ -15,6 +15,7 @@ class App extends Component {
     ],
 
     choosePlayer: true,
+    isP2Uman: false,
 
     player1name: "",
     player2name: "",
@@ -48,12 +49,40 @@ class App extends Component {
     if (newCells[cellIndex] === "") {
       newCells[cellIndex] = move;
     }
+    this.victoryHandler(newCells);
     this.setState({
       cells: newCells,
       isP1turn: !(this.state.isP1turn),
     });
+  }
 
-    this.victoryHandler(newCells);
+  pcMoveHandler = () => {
+    if (this.state.isGameOver) {
+      return null;
+    }
+
+    let board = [...this.state.cells];
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    let cellIndex = null;
+    while (cellIndex === null) {
+      let rand = getRandomIntInclusive(0, 8);
+      if (board[rand] === "") {
+        cellIndex = rand;
+      }
+    }
+
+    let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
+    board[cellIndex] = p2Symbol;
+    this.victoryHandler(board);
+    this.setState({
+      cells: board,
+      isP1turn: !(this.state.isP1turn),
+    });
   }
 
   historyHandler = (ActualCells)=> {
@@ -155,6 +184,10 @@ class App extends Component {
       player1name: gameSetting.player1name,
       player2name: gameSetting.player2name,
       player1symbol: gameSetting.player1symbol,
+    }, () => {
+      if (!this.state.isP2Uman && !this.state.isP1turn) {
+        this.pcMoveHandler();
+      }
     });
   }
 
@@ -174,6 +207,16 @@ class App extends Component {
     this.setState({
       isP1turn: Math.random() < 0.5
     });
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState){
+   return prevState;
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (!this.state.isP2Uman && !this.state.isP1turn && !this.state.isGameOver) {
+      this.pcMoveHandler();
+    }
   }
 
   render() {
