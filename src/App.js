@@ -15,14 +15,16 @@ class App extends Component {
     ],
 
     choosePlayer: true,
-    isP2Uman: false,
+    isP2Uman: true,
 
     player1name: "",
     player2name: "",
     player1symbol: "",
 
-    isP1turn: true,
+    isP1turn: null,
     isGameOver: false,
+
+    canP1play: true,
 
     p1Score: 0,
     p2Score: 0,
@@ -35,7 +37,8 @@ class App extends Component {
   }
 
   moveHandler = (cellIndex) => {
-    if (this.state.isGameOver) {
+    const isP2Uman = this.state.isP2Uman;
+    if (this.state.isGameOver || !this.state.canP1play) {
       return null;
     }
 
@@ -54,20 +57,23 @@ class App extends Component {
       cells: newCells,
       isP1turn: !(this.state.isP1turn),
     });
+    if (!isP2Uman) {
+      this.setState({
+        canP1play: false
+      });
+    }
   }
 
   pcMoveHandler = () => {
     if (this.state.isGameOver || this.state.isP1turn) {
       return null;
     }
-
     let board = [...this.state.cells];
     function getRandomIntInclusive(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
     let cellIndex = null;
     while (cellIndex === null) {
       let rand = getRandomIntInclusive(0, 8);
@@ -75,13 +81,13 @@ class App extends Component {
         cellIndex = rand;
       }
     }
-
     let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
     board[cellIndex] = p2Symbol;
     this.victoryHandler(board);
     this.setState({
       cells: board,
       isP1turn: !(this.state.isP1turn),
+      canP1play: true
     });
   }
 
