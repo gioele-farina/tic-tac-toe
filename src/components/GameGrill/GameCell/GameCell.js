@@ -7,7 +7,7 @@ const gameCell = (props) => {
   if (props.content === "" ) {
     classes = "gameCell active";
   }
-  if (props.isGameOver) {
+  if (props.isGameOver || !props.canP1play) {
     classes = "gameCell";
   }
 

@@ -249,7 +249,7 @@ class App extends Component {
             </h1>
             <VictoriesCounter p1Score={this.state.p1Score} p2Score={this.state.p2Score} player1name={this.state.player1name} player2name={this.state.player2name} />
           </div>
-          <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine}/>
+          <GameGrill cells={this.state.cells} moveHandler={this.moveHandler} isGameOver={this.state.isGameOver} victoryLine={this.state.victoryLine} canP1play={this.state.canP1play} />
         </Layout>
       </div>
     );
