@@ -9,6 +9,8 @@ class ChoosePlayer extends Component {
 
     player1symbol: "",
 
+    isP2Uman: false,
+
     notAllowed: false
   }
 
@@ -49,6 +51,13 @@ class ChoosePlayer extends Component {
     let isName2insert = this.state.player2name !== "";
     let isSymbolChosen = this.state.player1symbol !== "";
 
+    if (!this.state.isP2Uman) {
+      this.setState({
+        player2name: "PC"
+      });
+      isName2insert = "PC";
+    }
+
     if (isName1insert && isName2insert && isSymbolChosen) {
       this.setState({
         notAllowed : false,
@@ -63,6 +72,20 @@ class ChoosePlayer extends Component {
         notAllowed : true,
       });
     }
+  }
+
+  setPlayer2Uman = () => {
+    this.setState({
+      isP2Uman: true,
+      player2name: ""
+    });
+  }
+
+  setPlayer2PC = () => {
+    this.setState({
+      isP2Uman: false,
+      player2name: "PC"
+    });
   }
 
   render(){
@@ -112,18 +135,38 @@ class ChoosePlayer extends Component {
             </div>
           </div>
 
-          <div className="box2">
-            <h2>Player 2</h2>
-            <p>Name: </p>
-            <input type="text" onChange={(event) => this.changeNameHandler(event, "p2")} value={this.state.player2name} className={input2Class}/>
+          {this.state.isP2Uman
+            ?
+            <div className="box2">
+              <h2>Player 2</h2>
+              {this.state.isP2Uman ?
+                <div className="playVsPcButton" onClick={this.setPlayer2PC}>
+                  <h4>Or play vs PC</h4>
+                  <i className="fas fa-laptop"></i>
+                </div>
+                 : null
+              }
+              <p>Name: </p>
+              <input type="text" onChange={(event) => this.changeNameHandler(event, "p2")} value={this.state.player2name} className={input2Class}/>
 
-            <p className={choseTextClass}>Choose your symbol</p>
+              <p className={choseTextClass}>Choose your symbol</p>
 
-            <div className="chooseSymbol">
-              <div className={this.state.player1symbol === "O" ? "inputFilled" : ""} onClick={()=> this.chooseSymbolHandler("p2", "X")}>X</div>
-              <div className={this.state.player1symbol === "X" ? "inputFilled" : ""} onClick={()=> this.chooseSymbolHandler("p2", "O")}>O</div>
+              <div className="chooseSymbol">
+                <div className={this.state.player1symbol === "O" ? "inputFilled" : ""} onClick={()=> this.chooseSymbolHandler("p2", "X")}>X</div>
+                <div className={this.state.player1symbol === "X" ? "inputFilled" : ""} onClick={()=> this.chooseSymbolHandler("p2", "O")}>O</div>
+              </div>
             </div>
-          </div>
+            :
+            <div className="box2">
+              <h2>Player 2</h2>
+              <p>Name: </p>
+              <input type="text" value="PC" readOnly className={input2Class}/>
+              <div className="playerIcon" onClick={this.setPlayer2Uman}>
+                <i className="far fa-user"></i>
+              </div>
+            </div>
+
+          }
         </div>
 
         <div className="starButton" onClick={this.startHandler}>

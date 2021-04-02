@@ -91,3 +91,40 @@
   text-decoration: underline;
   text-decoration-color: red;
 }
+
+.box2 .playerIcon {
+  margin: 10px auto;
+  border: 1px solid black;
+  padding: 30px;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  cursor: pointer;
+}
+.box2:hover .playerIcon {
+  color: red;
+}
+
+.box2 .playVsPcButton {
+  margin: 5px auto;
+  border: 1px solid black;
+  display: inline-block;
+  padding: 8px;
+}
+.box2 .playVsPcButton i{
+  font-size: 20px;
+  margin-top: 5px;
+}
+.box2 .playVsPcButton:hover {
+  color: red;
+}
+
+/* .box1, .box2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+} */
