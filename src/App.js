@@ -69,20 +69,78 @@ class App extends Component {
       return null;
     }
     let board = [...this.state.cells];
-    function getRandomIntInclusive(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    let cellIndex = null;
-    while (cellIndex === null) {
-      let rand = getRandomIntInclusive(0, 8);
-      if (board[rand] === "") {
-        cellIndex = rand;
+
+    const makeRandomMove = (board) => {
+      function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
       }
+
+      let cellIndex = null;
+      while (cellIndex === null) {
+        let rand = getRandomIntInclusive(0, 8);
+        if (board[rand] === "") {
+          cellIndex = rand;
+        }
+      }
+
+      let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
+      board[cellIndex] = p2Symbol;
+      return board;
     }
-    let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
-    board[cellIndex] = p2Symbol;
+
+    const makeForcedMove = (board) => {
+      let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
+
+      let lines = {
+        line012: [board[0], board[1], board[2]],
+        line345: [board[3], board[4], board[5]],
+        line678: [board[6], board[7], board[8]],
+        line036: [board[0], board[3], board[6]],
+        line147: [board[1], board[4], board[7]],
+        line258: [board[2], board[5], board[8]],
+        line048: [board[0], board[4], board[8]],
+        line642: [board[6], board[4], board[2]],
+      };
+
+      let weakLines = [];
+
+      for (let line in lines) {
+
+        let xCount = 0;
+        let oCount = 0;
+        let blankCount = 0;
+
+        lines[line].forEach((cell, i) => {
+            if (cell === "X") {
+            xCount++;
+          } else if (cell === "O") {
+            oCount++;
+          } else {
+            blankCount++;
+          }
+        });
+
+        if ((xCount === 2 || oCount === 2) && blankCount === 1) {
+          weakLines.push(line);
+        }
+      }
+
+      // console.log(weakLines);
+      // dare la priorità alla linea vincente o in alternativa bloccare l'avversario
+      weakLines.forEach((line, i) => {
+        console.log(lines[line]);
+      });
+
+
+
+      return board;
+    }
+
+    board = makeRandomMove(board);
+    makeForcedMove(board);
+
     this.victoryHandler(board);
     this.setState({
       cells: board,
