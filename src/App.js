@@ -65,6 +65,8 @@ class App extends Component {
   }
 
   pcMoveHandler = () => {
+    let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
+
     if (this.state.isGameOver || this.state.isP1turn) {
       return null;
     }
@@ -85,13 +87,11 @@ class App extends Component {
         }
       }
 
-      let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
       board[cellIndex] = p2Symbol;
       return board;
     }
 
-    const makeForcedMove = (board) => {
-      let p2Symbol = this.state.player1symbol === "X" ? "O" : "X";
+    const findForcedMove = (board) => {
 
       let lines = {
         line012: [board[0], board[1], board[2]],
@@ -129,17 +129,56 @@ class App extends Component {
 
       // console.log(weakLines);
       // dare la priorità alla linea vincente o in alternativa bloccare l'avversario
+      let winnerLine = null;
+      let blockLine = null;
       weakLines.forEach((line, i) => {
-        console.log(lines[line]);
+        // console.log(lines[line][0]);
+        if (lines[line][0] === p2Symbol) {
+          winnerLine = line;
+        } else {
+          blockLine = line;
+        }
       });
 
+      let winnerCell = null;
+      let blockCell = null;
 
+      if (winnerLine !== null) {
+        let cellNumbers = winnerLine.substring(4);
+        lines[winnerLine].forEach((cell, i) => {
+          if (cell === "") {
+            winnerCell = cellNumbers[i];
+          }
+        });
+      }
 
-      return board;
+      if (blockLine !== null) {
+        let cellNumbers = blockLine.substring(4);
+        lines[blockLine].forEach((cell, i) => {
+          if (cell === "") {
+            blockCell = cellNumbers[i];
+          }
+        });
+      }
+
+      // console.log("winner", winnerCell);
+      // console.log("block", blockCell);
+
+      return ({
+        winnerCell: winnerCell,
+        blockCell: blockCell
+      });
     }
 
-    board = makeRandomMove(board);
-    makeForcedMove(board);
+    let forcedMove = findForcedMove(board);
+
+    if (forcedMove.winnerCell !== null) {
+      board[forcedMove.winnerCell] = p2Symbol;
+    } else if (forcedMove.blockCell !== null) {
+      board[forcedMove.blockCell] = p2Symbol;
+    } else {
+      board = makeRandomMove(board);
+    }
 
     this.victoryHandler(board);
     this.setState({
