@@ -78,6 +78,9 @@
   font-size: 60px;
   font-weight: bold;
 }
+.chooseSymbol > div:hover {
+  color: red;
+}
 
 .chooseSymbol {
   cursor: pointer;

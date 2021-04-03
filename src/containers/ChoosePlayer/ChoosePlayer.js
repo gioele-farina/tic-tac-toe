@@ -5,7 +5,7 @@ class ChoosePlayer extends Component {
 
   state = {
     player1name: "",
-    player2name: "",
+    player2name: "PC",
 
     player1symbol: "",
 
@@ -144,15 +144,15 @@ class ChoosePlayer extends Component {
             <div className="box2">
               <div>
                 <h2>Player 2</h2>
-                {this.state.isP2Uman ?
-                  <div className="playVsPcButton" onClick={this.setPlayer2PC}>
-                    <h4>Or play vs PC</h4>
-                    <i className="fas fa-laptop"></i>
-                  </div>
-                   : null
-                }
                 <p>Name: </p>
                 <input type="text" onChange={(event) => this.changeNameHandler(event, "p2")} value={this.state.player2name} className={input2Class}/>
+                  {this.state.isP2Uman ?
+                    <div className="playVsPcButton" onClick={this.setPlayer2PC}>
+                      <h4>Or play vs PC</h4>
+                      <i className="fas fa-laptop"></i>
+                    </div>
+                     : null
+                  }
               </div>
               <div>
                 <p className={choseTextClass}>Choose your symbol</p>
