@@ -127,7 +127,7 @@ class App extends Component {
         }
       }
 
-      // console.log(weakLines);
+      // console.log("weaklines", weakLines);
       // dare la priorità alla linea vincente o in alternativa bloccare l'avversario
       let winnerLine = null;
       let blockLine = null;
@@ -163,6 +163,7 @@ class App extends Component {
 
       // console.log("winner", winnerCell);
       // console.log("block", blockCell);
+      // console.log("------------------");
 
       return ({
         winnerCell: winnerCell,
@@ -197,7 +198,7 @@ class App extends Component {
   }
 
   drawHandler = (ActualCells) => {
-    console.log("draw");
+    // console.log("draw");
     this.setState({
       isGameOver: true,
     });
@@ -215,14 +216,14 @@ class App extends Component {
       });
 
       if (this.state.isP1turn) {
-        console.log("P1 wins");
+        // console.log("P1 wins");
         let newScore = this.state.p1Score;
         newScore++;
         this.setState({
           p1Score: newScore
         });
       } else {
-        console.log("P2 wins");
+        // console.log("P2 wins");
         let newScore = this.state.p2Score;
         newScore++;
         this.setState({
