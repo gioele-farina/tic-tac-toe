@@ -189,6 +189,7 @@ class App extends Component {
       player1name: gameSetting.player1name,
       player2name: gameSetting.player2name,
       player1symbol: gameSetting.player1symbol,
+      isP2Uman: gameSetting.isP2Uman,
     });
   }
 
