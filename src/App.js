@@ -171,12 +171,124 @@ class App extends Component {
       });
     }
 
+    const makeDoubleAttack = (board) => {
+      let lines = {
+        line012: [board[0], board[1], board[2]],
+        line345: [board[3], board[4], board[5]],
+        line678: [board[6], board[7], board[8]],
+        line036: [board[0], board[3], board[6]],
+        line147: [board[1], board[4], board[7]],
+        line258: [board[2], board[5], board[8]],
+        line048: [board[0], board[4], board[8]],
+        line642: [board[6], board[4], board[2]],
+      };
+
+      let freeLines = [];
+
+      for (let line in lines) {
+
+        let pcSymbolCount = 0;
+        let umanSymbolCount = 0;
+        lines[line].forEach((cell, i) => {
+          if (cell === p2Symbol) {
+            pcSymbolCount++;
+          } else if (cell === this.state.player1symbol) {
+            umanSymbolCount++;
+          }
+        });
+
+        if (pcSymbolCount === 1 && umanSymbolCount === 0) {
+          freeLines.push(line);
+        }
+      }
+
+      freeLines.forEach((line, i) => {
+        freeLines[i] = line.substring(4);
+      });
+
+      let cellState = {};
+      // inserisce solo le key vuote
+      freeLines.forEach((line, i) => {
+        cellState[line[0]] = 0;
+        cellState[line[1]] = 0;
+        cellState[line[2]] = 0;
+      });
+
+      // conta le celle libere (alcune saranno in comune)
+      freeLines.forEach((line, i) => {
+        if (board[line[0]] === "") {
+          cellState[line[0]]++;
+        }
+        if (board[line[1]] === "") {
+          cellState[line[1]]++;
+        }
+        if (board[line[2]] === "") {
+          cellState[line[2]]++;
+        }
+      });
+
+      let doubleAttack = null;
+      for (let cell in cellState) {
+        if (cellState[cell] === 2) {
+          doubleAttack = cell;
+        }
+      }
+
+      if (doubleAttack) {
+        return parseInt(doubleAttack);
+      } else {
+        return null;
+      }
+    }
+
+    const doubleLine = (board) => {
+      let lines = {
+        line012: [board[0], board[1], board[2]],
+        line345: [board[3], board[4], board[5]],
+        line678: [board[6], board[7], board[8]],
+        line036: [board[0], board[3], board[6]],
+        line147: [board[1], board[4], board[7]],
+        line258: [board[2], board[5], board[8]],
+        line048: [board[0], board[4], board[8]],
+        line642: [board[6], board[4], board[2]],
+      };
+
+      let freeLines = [];
+
+      for (let line in lines) {
+
+        let pcSymbolCount = 0;
+        let umanSymbolCount = 0;
+        lines[line].forEach((cell, i) => {
+          if (cell === p2Symbol) {
+            pcSymbolCount++;
+          } else if (cell === this.state.player1symbol) {
+            umanSymbolCount++;
+          }
+        });
+
+        if (pcSymbolCount === 1 && umanSymbolCount === 0) {
+          freeLines.push(line);
+        }
+      }
+
+      freeLines.forEach((line, i) => {
+        freeLines[i] = line.substring(4);
+      });
+
+
+    }
+
     let forcedMove = findForcedMove(board);
 
     if (forcedMove.winnerCell !== null) {
       board[forcedMove.winnerCell] = p2Symbol;
     } else if (forcedMove.blockCell !== null) {
       board[forcedMove.blockCell] = p2Symbol;
+    } else if (makeDoubleAttack(board) !== null) {
+      let doubleAttackResult = makeDoubleAttack(board);
+      board[doubleAttackResult] = p2Symbol;
+      console.log("Fregato", doubleAttackResult);
     } else {
       board = makeRandomMove(board);
     }
