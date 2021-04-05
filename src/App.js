@@ -276,6 +276,30 @@ class App extends Component {
         freeLines[i] = line.substring(4);
       });
 
+      let cellState = {};
+
+      freeLines.forEach((line, i) => {
+        cellState[line[0]] = board[[line[0]]];
+        cellState[line[1]] = board[[line[1]]];
+        cellState[line[2]] = board[[line[2]]];
+      });
+
+      console.log(cellState);
+      let freeMoves = [];
+      for (let cell in cellState) {
+        if (cellState[cell] === "") {
+          freeMoves.push(cell);
+        }
+      }
+      console.log(freeMoves);
+
+      let trapMove = null;
+      freeMoves.forEach((cell, i) => {
+        let newBoard = [...board];
+        newBoard[parseInt(cell)] = p2Symbol;
+        // let ifDouble = makeDoubleAttack(newBoard);
+        // console.log("possibile doppia", ifDouble);
+      });
 
     }
 
@@ -290,6 +314,7 @@ class App extends Component {
       board[doubleAttackResult] = p2Symbol;
       console.log("Fregato", doubleAttackResult);
     } else {
+      let doubleLineCell = doubleLine(board);
       board = makeRandomMove(board);
     }
 
